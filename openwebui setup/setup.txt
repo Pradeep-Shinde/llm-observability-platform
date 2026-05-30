@@ -1,5 +1,5 @@
 openwebui/backend/open_webui/main.py
-    from open_webui.routers import metrics
+    from open_webui.routers import metrics, ai_observability
 
     app.include_router(metrics.router, prefix="/metrics", tags=["metrics"])
 
@@ -7,8 +7,10 @@ openwebui/backend/open_webui/main.py
 
     app.add_middleware(MetricsMiddleware)
 
+    app.include_router(ai_observability.router, prefix="/api/ai", tags=["AI Observability"])
 
-create and move files in below folders:
+
+create files in below folders:
 openwebui/backend/open_webui/metrics/
   http.py
   postgres.py
@@ -17,8 +19,16 @@ openwebui/backend/open_webui/metrics/
   system.py
   middleware.py
 
+openwebui/backend/open_webui/metrics/
+  llm.py
+  metrics_collector.py
+  prometheus_client.py
+  prompts.py
+  summary.py
+
 openwebui/backend/open_webui/routers/
   metrics.py
+  ai_observability.py
 
 
 deploy service:
@@ -30,6 +40,7 @@ pip install -r requirements.txt
 install required libraries like
 python3 -m pip install prometheus-client
 python3 -m pip install psutil
+python3 -m pip install openai
 
 export ENABLE_SIGNUP=true
 export REDIS_URL=redis://:<redis pass>@<redis user>:<port>
@@ -38,6 +49,9 @@ for sql lite db
 export DATABASE_URL=sqlite:///./dev.db
 or
 export DATABASE_URL=postgresql://postgres:<pass>@<user>:<port>/postgres
+
+export LITELLM_URL =http://localhost:4000/v1
+export PROM_URL =http://localhost:19090
 
 python -m uvicorn open_webui.main:app --host 0.0.0.0 --port 3000
 

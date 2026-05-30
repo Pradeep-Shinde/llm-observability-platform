@@ -5,7 +5,7 @@ A production-inspired observability platform for LLM applications built using Op
 The platform provides end-to-end monitoring, tracing, performance analysis, and infrastructure visibility for self-hosted LLM workloads. 
 It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboards to improve operational visibility, debugging, and performance analysis.
 
-<img src="Screenshots/grafana-dashboard-1.png" width="2560" alt="Grafana Dashboard">
+<img src="Screenshots/grafana-dashboard-1.png" width="2560" alt="Grafana Dashboard Overview">
 
 ---
 
@@ -23,6 +23,9 @@ It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboar
 * ✅ HTTP status code monitoring (2xx/4xx/5xx)
 * ✅ P99 latency tracking
 * ✅ Endpoint normalization to prevent metric cardinality explosion
+* ✅ AI-powered observability assistant (/api/ai/summary)
+* ✅ LLM-based metric analysis
+* ✅ Automated operational insight generation
 
 ---
 
@@ -42,6 +45,7 @@ The platform collects and visualizes:
 * System-level CPU and memory utilization
 * Langfuse traces for LLM interactions
 
+The platform also includes an AI-powered observability assistant that analyzes Prometheus metrics using LiteLLM and Llama 3 to generate operational summaries and health assessments.
 The goal is to provide production-style monitoring and telemetry for local and self-hosted LLM environments.
 
 ---
@@ -59,12 +63,14 @@ The goal is to provide production-style monitoring and telemetry for local and s
                      │        Port 3000         │
                      └───────────┬──────────────┘
                                  │
+                                 │ Chat Requests
                                  ▼
                      ┌──────────────────────────┐
                      │         LiteLLM          │
                      │        Port 4000         │
                      └───────────┬──────────────┘
                                  │
+                                 │ Inference
                                  ▼
                      ┌──────────────────────────┐
                      │         Ollama           │
@@ -87,6 +93,7 @@ The goal is to provide production-style monitoring and telemetry for local and s
                      │         Langfuse         │
                      │        Port 3100         │
                      └──────┬──────┬──────┬─────┘
+                            │      │      │
                             │      │      │
                             ▼      ▼      ▼
                     ┌─────────┐ ┌──────┐ ┌────────────┐
@@ -116,11 +123,37 @@ The goal is to provide production-style monitoring and telemetry for local and s
                      │        Port 19090        │
                      └───────────┬──────────────┘
                                  │
+                                 │ Queries
                                  ▼
                      ┌──────────────────────────┐
                      │         Grafana          │
                      │        Port 3001         │
                      └──────────────────────────┘
+
+
+     ┌─────────────────────────────────────────────────────────┐
+     │               AI Observability Assistant                │
+     └─────────────────────────────────────────────────────────┘
+
+                    ┌──────────────────────────┐
+                    │       Prometheus         │
+                    └───────────┬──────────────┘
+                                │
+                                ▼
+                    ┌──────────────────────────┐
+                    │ AI Observability         │
+                    │ Assistant                │
+                    └───────────┬──────────────┘
+                                │
+                                ▼
+                    ┌──────────────────────────┐
+                    │         LiteLLM          │
+                    └───────────┬──────────────┘
+                                │
+                                ▼
+                    ┌──────────────────────────┐
+                    │        Llama 3           │
+                    └──────────────────────────┘
 ```
 
 ---
@@ -130,6 +163,13 @@ The goal is to provide production-style monitoring and telemetry for local and s
 ## LLM Layer
 
 * OpenWebUI
+* LiteLLM
+* Ollama
+* Llama 3
+
+### AI Stack
+
+* Prometheus
 * LiteLLM
 * Ollama
 * Llama 3
@@ -288,35 +328,82 @@ The dashboard provides visibility into:
 
 ---
 
+
+# AI Observability Assistant
+
+The platform includes an AI-powered observability assistant that analyzes Prometheus metrics and generates operational insights using LiteLLM and Llama 3.
+
+### API
+
+GET /api/ai/summary
+
+### Example
+
+curl http://localhost:3000/api/ai/summary
+
+### Example Response
+
+Example response generated from live Prometheus metrics using LiteLLM and Llama 3.
+
+```json
+{
+  "timestamp": "2026-05-30T08:17:41.847241",
+  "metrics": {
+    "cpu": 62.4,
+    "memory_mb": 8148.02,
+    "rps": 0.21,
+    "p99_latency": 13.0,
+    "error_rate": 0.0
+  },
+  "analysis": "Health Status: The system is experiencing high CPU usage and elevated memory consumption..."
+}
+```
+
+Returns:
+
+- Health Status
+- Observations
+- Risks Visible From Metrics
+- Additional Data Needed
+
+The assistant uses Prometheus metrics as context and generates structured operational summaries for troubleshooting and system monitoring.
+
+
+---
+
 # Screenshots
+
+## AI Observability Assistant
+
+<img src="Screenshots/ai_observability_summary.png" width="2920" alt="AI Observability Assistant Summary API">
 
 ## Grafana Dashboard
 
-<img src="Screenshots/grafana-dashboard-1.png" width="2560" alt="">
+<img src="Screenshots/grafana-dashboard-1.png" width="2560" alt="Grafana Dashboard Overview">
 
-<img src="Screenshots/grafana-dashboard-2.png" width="2558" alt="">
+<img src="Screenshots/grafana-dashboard-2.png" width="2558" alt="Grafana HTTP Metrics">
 
-<img src="Screenshots/grafana-dashboard-3.png" width="2560" alt="">
+<img src="Screenshots/grafana-dashboard-3.png" width="2560" alt="Grafana Redis and PostgreSQL Metrics">
 
-<img src="Screenshots/grafana-dashboard-4.png" width="2555" alt="">
+<img src="Screenshots/grafana-dashboard-4.png" width="2555" alt="Grafana System Metrics">
 
 ---
 
 ## Langfuse Traces
 
-<img src="Screenshots/langfuse-traces.png" width="2559" alt="">
+<img src="Screenshots/langfuse-traces.png" width="2559" alt="Langfuse Traces">
 
 ---
 
 ## OpenWebUI
 
-<img src="Screenshots/openwebui-chat.png" width="2556" alt="">
+<img src="Screenshots/openwebui-chat.png" width="2556" alt="OpenWebUI Chat Interface">
 
 ---
 
 ## Prometheus
 
-<img src="Screenshots/prometheus.png" width="2560" alt="">
+<img src="Screenshots/prometheus.png" width="2560" alt="Prometheus Metrics">
 
 ---
 
@@ -360,6 +447,9 @@ The dashboard provides visibility into:
 * Reduced observability blind spots through custom instrumentation.
 * Simplified performance analysis and debugging through Grafana dashboards.
 * Implemented scalable metric collection using path normalization.
+* Built an AI-powered observability assistant using LiteLLM and Llama 3.
+* Automated operational health analysis from Prometheus metrics.
+* Generated structured observability summaries using LLMs.
 
 ---
 
@@ -375,7 +465,6 @@ The dashboard provides visibility into:
 
 # Future Enhancements
 
-* AI-powered observability assistant
 * Automated incident report generation
 * Root cause analysis using LLMs
 * Anomaly detection and alert summarization
@@ -389,7 +478,7 @@ The dashboard provides visibility into:
 
 # Roadmap
 
-## v1.0
+## v1.0 (Completed)
 
 * Custom Prometheus instrumentation
 * Grafana dashboards
@@ -398,18 +487,39 @@ The dashboard provides visibility into:
 * Endpoint-level visibility
 * P99 latency tracking
 
-## v1.1 (Planned)
+
+## v1.1 (Completed)
 
 * AI-powered observability assistant
 * LLM-based metric analysis
 * Operational insight generation
+* Automated health summaries
+* /api/ai/summary endpoint
 
-## v1.2 (Future)
 
-* Root cause analysis
-* Incident summarization
-* Anomaly detection
+## v1.2 (Planned)
+
+* Natural language observability queries
+* Interactive observability assistant (/api/ai/ask)
+* Endpoint performance analysis
+* Endpoint latency investigation
+* Traffic pattern analysis
+* Redis health analysis
+* PostgreSQL health analysis
+* Query routing for observability questions
+* Prometheus-backed AI responses
+* Langfuse tracing for AI assistant interactions
+
+
+## v1.3 (Future)
+
+* Root cause analysis workflows
+* Incident report generation
+* Multi-step AI investigation
+* Anomaly detection and summarization
 * Alert intelligence
+* Prometheus Alertmanager integration
+* AI observability agent
 
 ---
 
@@ -426,3 +536,7 @@ This project strengthened practical experience in:
 * Telemetry Engineering
 * Distributed Systems Debugging
 * Production-Grade Monitoring Systems
+* LLM Application Development
+* Prompt Engineering
+* AI-assisted Observability
+* Retrieval-Augmented Operational Analysis
