@@ -1,0 +1,11 @@
+OpenWebUI
+├── HTTP RPS
+├── HTTP Status Codes (2xx/4xx/5xx)
+├── Endpoint Latency
+├── P99 Latency
+├── Active Requests
+├── Process Metrics
+├── CPU Usage
+├── Memory Usage
+├── Redis Metrics
+└── Postgres Metrics

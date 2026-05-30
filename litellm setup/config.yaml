@@ -1,0 +1,10 @@
+model_list:
+  - model_name: llama3
+    litellm_params:
+      model: ollama/llama3
+      api_base: http://localhost:11434
+      timeout: 60
+
+litellm_settings:
+  callbacks:
+    - langfuse_otel

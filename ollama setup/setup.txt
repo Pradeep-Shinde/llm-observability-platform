@@ -1,0 +1,19 @@
+install Ollama
+
+example MAC setup:
+brew install ollama
+ollama pull llama3
+
+
+to check locally in terminal:
+ollama run llama3
+>>> hi
+Hi! It's nice to meet you. Is there something I can help you with, or would you like to chat?
+>>>
+
+to use latest model
+ollama run llama3:latest
+
+
+to run the service
+ollama serve

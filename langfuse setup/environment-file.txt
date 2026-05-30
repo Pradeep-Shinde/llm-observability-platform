@@ -1,0 +1,19 @@
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=postgres
+
+SALT=my_salt
+ENCRYPTION_KEY=<encripted key created using cmd: openssl rand -hex 32>
+
+NEXTAUTH_URL=http://localhost:3100
+NEXTAUTH_SECRET=nextauth_secret
+
+CLICKHOUSE_USER=clickhouse
+CLICKHOUSE_PASSWORD=clickhouse
+
+MINIO_ROOT_USER=minio
+MINIO_ROOT_PASSWORD=miniosecret
+
+REDIS_AUTH=redissecret
+
+TELEMETRY_ENABLED=false

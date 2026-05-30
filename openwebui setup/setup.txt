@@ -1,0 +1,44 @@
+openwebui/backend/open_webui/main.py
+    from open_webui.routers import metrics
+
+    app.include_router(metrics.router, prefix="/metrics", tags=["metrics"])
+
+    from open_webui.metrics.middleware import MetricsMiddleware
+
+    app.add_middleware(MetricsMiddleware)
+
+
+create and move files in below folders:
+openwebui/backend/open_webui/metrics/
+  http.py
+  postgres.py
+  redis.py
+  process.py
+  system.py
+  middleware.py
+
+openwebui/backend/open_webui/routers/
+  metrics.py
+
+
+deploy service:
+cd open-webui/backend/
+python3 -m venv venv-dev
+source venv-dev/bin/activate
+pip install -r requirements.txt
+
+install required libraries like
+python3 -m pip install prometheus-client
+python3 -m pip install psutil
+
+export ENABLE_SIGNUP=true
+export REDIS_URL=redis://:<redis pass>@<redis user>:<port>
+
+for sql lite db
+export DATABASE_URL=sqlite:///./dev.db
+or
+export DATABASE_URL=postgresql://postgres:<pass>@<user>:<port>/postgres
+
+python -m uvicorn open_webui.main:app --host 0.0.0.0 --port 3000
+
+also check newly created <open-webui-url>/metrics/ endpoint which shows all the metrics

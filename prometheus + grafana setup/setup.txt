@@ -1,0 +1,2 @@
+edit prometheus.yaml file and add the file path in it
+docker compose up -d

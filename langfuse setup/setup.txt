@@ -1,0 +1,5 @@
+Fetch official Lanfuse git repo
+
+create .env file and add your
+
+docker compose up -d

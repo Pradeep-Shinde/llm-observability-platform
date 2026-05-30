@@ -1,0 +1,14 @@
+create litellm folder and add config.yaml
+
+Now configure OpenWebUI to use LiteLLM.
+	1. Open: open-web-ui url
+	2. Go to: Settings → Admin Settings → Connections
+	3. Set:
+	• Base URL: <litellm url>
+        "example": http://host.containers.internal:4000
+	• Default model name:
+        llama3
+
+
+python3 -m pip install python-dotenv
+dotenv run -- litellm --config config.yaml --port 4000
