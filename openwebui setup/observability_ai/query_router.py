@@ -22,9 +22,6 @@ def route_question(question):
     if "health" in q:
         return "health"
 
-    if "redis" in q:
-        return "redis"
-
     if any(word in q for word in ["postgres", "postgresql", "database", "db"]):
         return "postgres"
 
