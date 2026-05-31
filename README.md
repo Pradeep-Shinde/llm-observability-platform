@@ -23,9 +23,24 @@ It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboar
 * ✅ HTTP status code monitoring (2xx/4xx/5xx)
 * ✅ P99 latency tracking
 * ✅ Endpoint normalization to prevent metric cardinality explosion
-* ✅ AI-powered observability assistant (/api/ai/summary)
-* ✅ LLM-based metric analysis
-* ✅ Automated operational insight generation
+* ✅ AI-powered observability assistant 
+* ✅ Automated health summaries (/api/ai/summary)
+* ✅ Natural language observability queries (/api/ai/ask)
+* ✅ Intent-based query routing 
+* ✅ Prometheus-backed AI responses 
+* ✅ Redis health analysis 
+* ✅ PostgreSQL health analysis 
+* ✅ Endpoint traffic analysis 
+* ✅ Endpoint latency analysis
+
+---
+
+# Project Status
+
+✅ v1.0 Completed  
+✅ v1.1 Completed  
+✅ v1.2 Completed  
+🚧 v1.3 Planned
 
 ---
 
@@ -45,7 +60,7 @@ The platform collects and visualizes:
 * System-level CPU and memory utilization
 * Langfuse traces for LLM interactions
 
-The platform also includes an AI-powered observability assistant that analyzes Prometheus metrics using LiteLLM and Llama 3 to generate operational summaries and health assessments.
+The platform also includes an AI-powered observability assistant that analyzes Prometheus metrics using LiteLLM and Llama 3 to generate health summaries and answer natural language observability questions.
 The goal is to provide production-style monitoring and telemetry for local and self-hosted LLM environments.
 
 ---
@@ -331,11 +346,22 @@ The dashboard provides visibility into:
 
 # AI Observability Assistant
 
-The platform includes an AI-powered observability assistant that analyzes Prometheus metrics and generates operational insights using LiteLLM and Llama 3.
+The platform includes an AI-powered observability assistant capable of generating health summaries and answering natural language observability questions using live Prometheus metrics.
 
-### API
+### Endpoints
+
+## Health Summary API
 
 GET /api/ai/summary
+
+Provides:
+
+- Health Status
+- Observations
+- Missing Information
+- Additional Data Needed
+
+Generated from live Prometheus metrics.
 
 ### Example
 
@@ -359,12 +385,48 @@ Example response generated from live Prometheus metrics using LiteLLM and Llama 
 }
 ```
 
-Returns:
+## Natural Language Query API
 
-- Health Status
-- Observations
-- Risks Visible From Metrics
-- Additional Data Needed
+POST /api/ai/ask
+
+Supported Query Categories:
+
+* CPU usage analysis
+* Memory usage analysis
+* Endpoint traffic analysis
+* Endpoint latency analysis
+* Redis health analysis
+* PostgreSQL health analysis
+* System health summaries
+
+Example questions:
+
+- What is current CPU usage?
+- What is current memory usage?
+- Which endpoint has highest traffic?
+- Which endpoint is slowest?
+- Show Redis health
+- Show PostgreSQL health
+- How healthy is the system?
+
+### Example
+
+```bash
+curl -X POST \
+http://localhost:3000/api/ai/ask \
+-H "Content-Type: application/json" \
+-d '{"question":"Which endpoint has highest traffic?"}'
+```
+
+Response:
+
+```json
+{
+  "question": "Which endpoint has highest traffic?",
+  "intent": "traffic",
+  "answer": "The `/metrics/` endpoint has the highest traffic with 0.17 requests per second."
+}
+```
 
 The assistant uses Prometheus metrics as context and generates structured operational summaries for troubleshooting and system monitoring.
 
@@ -376,6 +438,14 @@ The assistant uses Prometheus metrics as context and generates structured operat
 ## AI Observability Assistant
 
 <img src="Screenshots/ai_observability_summary.png" width="2920" alt="AI Observability Assistant Summary API">
+
+---
+
+## Interactive AI Assistant
+
+<img src="Screenshots/ai-assistant.png" width="2318" alt="Natural Language Observability Queries">
+
+---
 
 ## Grafana Dashboard
 
@@ -448,8 +518,12 @@ The assistant uses Prometheus metrics as context and generates structured operat
 * Simplified performance analysis and debugging through Grafana dashboards.
 * Implemented scalable metric collection using path normalization.
 * Built an AI-powered observability assistant using LiteLLM and Llama 3.
+* Implemented natural language querying for Prometheus-backed observability data.
 * Automated operational health analysis from Prometheus metrics.
 * Generated structured observability summaries using LLMs.
+* Implemented intent-based routing for observability questions.
+* Enabled Redis and PostgreSQL health analysis using LLMs.
+* Added interactive observability querying through /api/ai/ask.
 
 ---
 
@@ -497,7 +571,7 @@ The assistant uses Prometheus metrics as context and generates structured operat
 * /api/ai/summary endpoint
 
 
-## v1.2 (Planned)
+## v1.2 (Completed)
 
 * Natural language observability queries
 * Interactive observability assistant (/api/ai/ask)
@@ -508,18 +582,18 @@ The assistant uses Prometheus metrics as context and generates structured operat
 * PostgreSQL health analysis
 * Query routing for observability questions
 * Prometheus-backed AI responses
-* Langfuse tracing for AI assistant interactions
+* Langfuse tracing and monitoring integration
 
 
-## v1.3 (Future)
+## v1.3 (Planned)
 
-* Root cause analysis workflows
-* Incident report generation
-* Multi-step AI investigation
-* Anomaly detection and summarization
-* Alert intelligence
+* Root Cause Analysis (RCA) workflows
+* AI-generated incident reports
+* Multi-step observability investigations
+* Metric anomaly detection and summarization
+* Alert intelligence and contextualization
 * Prometheus Alertmanager integration
-* AI observability agent
+* AI-powered observability agent
 
 ---
 
@@ -540,3 +614,7 @@ This project strengthened practical experience in:
 * Prompt Engineering
 * AI-assisted Observability
 * Retrieval-Augmented Operational Analysis
+* AI Agent Design Patterns
+* Natural Language Query Routing
+* LLM-powered Operational Analytics
+* Observability Intelligence Systems
