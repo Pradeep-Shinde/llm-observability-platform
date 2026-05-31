@@ -20,12 +20,29 @@ P99 Latency:
 5xx Error Rate:
 {metrics["error_rate"]}
 
+System Metrics:
+{metrics}
+
+Redis Metrics:
+{metrics}
+
+PostgreSQL Metrics:
+{metrics}
+
 Rules:
 
 - Only use supplied metrics.
+- Do not speculate.
+- Do not infer bottlenecks.
 - Do not invent root causes.
+- Do not infer memory leaks.
+- Do not infer database health.
+- Do not infer performance issues.
+- Do not infer reliability issues.
 - Do not infer causes from correlation alone.
 - Do not recommend infrastructure changes unless directly supported by metrics.
+- Report observed connection metrics only.
+- If a metric is unavailable, explicitly state that.
 - If insufficient information exists, say:
   "Insufficient data to determine root cause."
 
@@ -33,7 +50,7 @@ Provide:
 
 1. Health Status
 2. Observations
-3. Risks Visible From Metrics
+3. Missing Information
 4. Additional Data Needed
 
 Keep the response under 150 words.

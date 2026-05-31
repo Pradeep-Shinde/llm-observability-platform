@@ -19,12 +19,16 @@ openwebui/backend/open_webui/metrics/
   system.py
   middleware.py
 
-openwebui/backend/open_webui/metrics/
+openwebui/backend/open_webui/observability_ai/
   llm.py
   metrics_collector.py
   prometheus_client.py
   prompts.py
   summary.py
+  ask.py
+  context_builder.py
+  prometheus_tools.py
+  query_router.py
 
 openwebui/backend/open_webui/routers/
   metrics.py
