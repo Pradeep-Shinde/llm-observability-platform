@@ -1,4 +1,12 @@
 from .prometheus_client import query
+from .prometheus_tools import (
+    get_cpu_usage,
+    get_memory_health,
+    get_top_endpoints,
+    get_slowest_endpoints,
+    get_redis_health,
+    get_postgres_health,
+)
 
 def get_metric_value(result):
 
@@ -57,4 +65,14 @@ def collect_metrics():
         "rps": round(rps, 2),
         "p99_latency": round(p99, 2),
         "error_rate": round(errors, 2),
+    }
+
+def collect_observability_data():
+    return {
+        "cpu": get_cpu_usage(),
+        "memory": get_memory_health(),
+        "traffic": get_top_endpoints(),
+        "latency": get_slowest_endpoints(),
+        "redis": get_redis_health(),
+        "postgres": get_postgres_health(),
     }

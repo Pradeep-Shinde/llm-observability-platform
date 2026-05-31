@@ -1,3 +1,7 @@
+First Download OpenWebUI REPO from Official Website.
+
+Then do below changes:
+
 openwebui/backend/open_webui/main.py
     from open_webui.routers import metrics, ai_observability
 
@@ -19,16 +23,25 @@ openwebui/backend/open_webui/metrics/
   system.py
   middleware.py
 
+
 openwebui/backend/open_webui/observability_ai/
+  agent.py
+  alert_intelligence.py
+  anomaly_detector.py
+  ask.py
+  context_builder.py
+  incident_report.py
+  investigation.py
+  investigation_prompt.py
   llm.py
   metrics_collector.py
   prometheus_client.py
-  prompts.py
-  summary.py
-  ask.py
-  context_builder.py
   prometheus_tools.py
+  prompts.py
   query_router.py
+  rca.py
+  summary.py
+
 
 openwebui/backend/open_webui/routers/
   metrics.py

@@ -1,3 +1,4 @@
+import math
 from .prometheus_client import query
 
 
@@ -18,8 +19,10 @@ def _get_endpoint_metric(query_result, unit=""):
     for item in query_result["data"]["result"]:
         path = item["metric"].get("path", "unknown")
         value = float(item["value"][1])
+        if math.isnan(value):
+            continue
         endpoints.append(f"{path}: {value:.2f}{unit}")
-    return "\n".join(endpoints)
+    return "\n".join(endpoints) if endpoints else "No endpoint data available"
 
 
 def get_cpu_usage():

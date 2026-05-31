@@ -2,8 +2,10 @@
 
 A production-inspired observability platform for LLM applications built using OpenWebUI, LiteLLM, Ollama, Langfuse, Prometheus, and Grafana.
 
-The platform provides end-to-end monitoring, tracing, performance analysis, and infrastructure visibility for self-hosted LLM workloads. 
-It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboards to improve operational visibility, debugging, and performance analysis.
+The platform provides end-to-end monitoring, tracing, performance analysis, and AI-powered operational intelligence for self-hosted LLM workloads. 
+It extends OpenWebUI with custom Prometheus instrumentation, Grafana dashboards, Langfuse tracing, and AI-driven observability workflows to improve system visibility, troubleshooting, incident analysis, and operational decision-making.
+
+Built as a full-stack observability solution, the platform combines traditional monitoring with AI-assisted investigations, root cause analysis (RCA), anomaly detection, alert intelligence, incident reporting, and autonomous observability agent workflows powered by live Prometheus metrics and LLM reasoning.
 
 <img src="Screenshots/grafana-dashboard-1.png" width="2560" alt="Grafana Dashboard Overview">
 
@@ -11,6 +13,10 @@ It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboar
 
 # Features
 
+* ✅ AI observability agent
+* ✅ Root Cause Analysis (RCA)
+* ✅ Multi-step AI investigations
+* ✅ Natural language observability queries (/api/ai/ask)
 * ✅ Local LLM inference using Ollama (Llama 3)
 * ✅ LiteLLM proxy integration
 * ✅ Langfuse tracing and monitoring
@@ -25,13 +31,16 @@ It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboar
 * ✅ Endpoint normalization to prevent metric cardinality explosion
 * ✅ AI-powered observability assistant 
 * ✅ Automated health summaries (/api/ai/summary)
-* ✅ Natural language observability queries (/api/ai/ask)
 * ✅ Intent-based query routing 
 * ✅ Prometheus-backed AI responses 
 * ✅ Redis health analysis 
 * ✅ PostgreSQL health analysis 
 * ✅ Endpoint traffic analysis 
 * ✅ Endpoint latency analysis
+* ✅ Incident report generation 
+* ✅ Metric anomaly detection 
+* ✅ Alert intelligence 
+* ✅ Prometheus Alertmanager webhook integration
 
 ---
 
@@ -40,28 +49,57 @@ It extends OpenWebUI with custom Prometheus instrumentation and Grafana dashboar
 ✅ v1.0 Completed  
 ✅ v1.1 Completed  
 ✅ v1.2 Completed  
-🚧 v1.3 Planned
+✅ v1.3 Completed
+
+---
+
+# v1.3 Highlights
+
+* AI Observability Agent
+* Multi-step AI Investigations
+* Root Cause Analysis (RCA)
+* Incident Report Generation
+* Anomaly Detection
+* Alert Intelligence
+* Alertmanager Integration
 
 ---
 
 # Overview
 
-Modern LLM applications require visibility across application requests, infrastructure components, and model interactions. This project was built to provide a unified observability layer for an OpenWebUI-based LLM stack.
+Modern LLM applications require visibility across application requests, infrastructure components, model interactions, and operational health. 
+This project provides a production-inspired observability platform for self-hosted LLM workloads built on OpenWebUI, LiteLLM, Ollama, Langfuse, Prometheus, and Grafana.
 
-The platform collects and visualizes:
+The platform collects, analyzes, and visualizes:
 
-* LLM request traffic
-* Endpoint-level request rates
-* HTTP latency and P99 response times
-* HTTP status code distribution
-* Redis health metrics
+* LLM request traffic and throughput
+* Endpoint-level request rates and latency
+* HTTP status code distribution (2xx/4xx/5xx)
+* P99 latency and performance trends
+* Redis health and resource utilization
 * PostgreSQL connection metrics
-* Process resource consumption
-* System-level CPU and memory utilization
+* Process-level resource consumption
+* System CPU and memory utilization
 * Langfuse traces for LLM interactions
 
-The platform also includes an AI-powered observability assistant that analyzes Prometheus metrics using LiteLLM and Llama 3 to generate health summaries and answer natural language observability questions.
-The goal is to provide production-style monitoring and telemetry for local and self-hosted LLM environments.
+Beyond traditional observability, the platform includes an AI-powered observability layer that uses live Prometheus metrics and LLM reasoning to automate operational analysis.
+
+Key AI capabilities include:
+
+* Automated health summaries
+* Natural language observability queries
+* Multi-step system investigations
+* Root Cause Analysis (RCA)
+* Metric anomaly detection
+* Alert intelligence and contextualization
+* Incident report generation
+* Prometheus Alertmanager integration
+* AI Observability Agent workflows
+
+The AI Observability Agent orchestrates investigations, anomaly detection, RCA, and alert analysis to generate consolidated operational assessments using real-time observability data.
+
+The goal is to combine modern observability practices with AI-assisted operational intelligence, providing production-style monitoring, troubleshooting, and incident analysis for local and self-hosted LLM environments.
+
 
 ---
 
@@ -169,6 +207,92 @@ The goal is to provide production-style monitoring and telemetry for local and s
                     ┌──────────────────────────┐
                     │        Llama 3           │
                     └──────────────────────────┘
+                    
+                    
+         ┌─────────────────────────────────────────────────────────┐
+         │                 AI Observability Agent                  │
+         └─────────────────────────────────────────────────────────┘
+    
+                        ┌──────────────────────────┐
+                        │      User Question       │
+                        └───────────┬──────────────┘
+                                    │
+                                    ▼
+                        ┌──────────────────────────┐
+                        │  AI Observability Agent  │
+                        │      /api/ai/agent       │
+                        └───────────┬──────────────┘
+                                    │
+          ┌─────────────────────────┼──────────────────────────┐
+          │                         │                          │
+          ▼                         ▼                          ▼
+
+        ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+        │ Investigation    │  │       RCA        │  │ Anomaly Detection│
+        │ /investigate     │  │      /rca        │  │   /anomalies     │
+        └────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘
+                 │                     │                     │
+                 └──────────┬──────────┴──────────┬──────────┘
+                            │                     │
+                            ▼                     ▼
+    
+                          ┌──────────────────────────┐
+                          │    Alert Intelligence    │
+                          │   /alert-analysis        │
+                          └───────────┬──────────────┘
+                                      │
+                                      ▼
+                          ┌──────────────────────────┐
+                          │  Incident Report Engine  │
+                          │       /report            │
+                          └───────────┬──────────────┘
+                                      │
+                                      ▼
+                          ┌──────────────────────────┐
+                          │       Prometheus         │
+                          │          Redis           │
+                          │       PostgreSQL         │
+                          └───────────┬──────────────┘
+                                      │
+                                      ▼
+                          ┌──────────────────────────┐
+                          │         LiteLLM          │
+                          └───────────┬──────────────┘
+                                      │
+                                      ▼
+                          ┌──────────────────────────┐
+                          │        Llama 3           │
+                          └──────────────────────────┘
+                  
+                  
+             ┌─────────────────────────────────────────────────────────┐
+             │              Alertmanager Integration                   │
+             └─────────────────────────────────────────────────────────┘
+        
+                            ┌──────────────────────────┐
+                            │      Prometheus          │
+                            └───────────┬──────────────┘
+                                        │
+                                        ▼
+                            ┌──────────────────────────┐
+                            │     Alertmanager         │
+                            └───────────┬──────────────┘
+                                        │ Webhook
+                                        ▼
+                            ┌──────────────────────────┐
+                            │ /api/ai/alerts/webhook   │
+                            └───────────┬──────────────┘
+                                        │
+                                        ▼
+                            ┌──────────────────────────┐
+                            │   Alert Intelligence     │
+                            └───────────┬──────────────┘
+                                        │
+                                        ▼
+                            ┌──────────────────────────┐
+                            │      AI Analysis         │
+                            └──────────────────────────┘
+         
 ```
 
 ---
@@ -213,6 +337,17 @@ The goal is to provide production-style monitoring and telemetry for local and s
 ---
 
 # Custom Engineering Work
+
+### Custom Metrics Implemented
+
+* HTTP Metrics: 8+
+* Redis Metrics: 4
+* PostgreSQL Metrics: 3
+* Process Metrics: 3+
+* System Metrics: 2+
+
+Total Custom Prometheus Metrics: 20+
+
 
 ## HTTP Observability
 
@@ -348,7 +483,18 @@ The dashboard provides visibility into:
 
 The platform includes an AI-powered observability assistant capable of generating health summaries and answering natural language observability questions using live Prometheus metrics.
 
-### Endpoints
+| Endpoint | Purpose |
+|-----------|----------|
+| GET /api/ai/summary | Health summary |
+| POST /api/ai/ask | Natural language observability queries |
+| POST /api/ai/investigate | Multi-step investigation |
+| POST /api/ai/rca | Root cause analysis |
+| GET /api/ai/anomalies | Anomaly detection |
+| POST /api/ai/alert-analysis | Alert intelligence |
+| POST /api/ai/report | Incident report generation |
+| POST /api/ai/agent | AI observability agent |
+| POST /api/ai/alerts/webhook | Alertmanager integration |
+
 
 ## Health Summary API
 
@@ -430,10 +576,216 @@ Response:
 
 The assistant uses Prometheus metrics as context and generates structured operational summaries for troubleshooting and system monitoring.
 
+---
+
+# Advanced AI Observability Workflows
+
+## Investigation API
+
+POST /api/ai/investigate
+
+Performs multi-step observability investigations using:
+
+* CPU metrics
+* Memory metrics
+* Traffic metrics
+* Latency metrics
+* Redis metrics
+* PostgreSQL metrics
+
+Provides:
+
+* Investigation Summary
+* Observed Metrics
+* Missing Information
+* Additional Observability Data
+
+
+## Root Cause Analysis API
+
+POST /api/ai/rca
+
+Generates structured RCA reports using live observability data.
+
+Provides:
+
+* Incident Summary
+* Observed Evidence
+* Missing Evidence
+* RCA Outcome
+
+
+## Anomaly Detection API
+
+GET /api/ai/anomalies
+
+Detects anomalies using observability thresholds.
+
+Current anomaly categories:
+
+* CPU anomalies
+* Memory anomalies
+* 5xx error anomalies
+
+
+## Alert Intelligence API
+
+POST /api/ai/alert-analysis
+
+Analyzes alerts using:
+
+* Prometheus metrics
+* Redis metrics
+* PostgreSQL metrics
+* Detected anomalies
+
+Provides:
+
+* Alert Summary
+* Observed Metrics
+* Detected Anomalies
+* Alert Assessment
+
+
+## Alertmanager Integration
+
+POST /api/ai/alerts/webhook
+
+Receives Prometheus Alertmanager webhooks and automatically performs AI-powered alert analysis.
+
+Workflow:
+
+Alertmanager
+→ Webhook
+→ Alert Intelligence
+→ AI Analysis
+
+
+## Incident Report API
+
+POST /api/ai/report
+
+Generates structured incident reports using:
+
+* Investigation results
+* RCA findings
+* Detected anomalies
+
+Provides:
+
+* Incident Summary
+* Investigation Findings
+* RCA Findings
+* Detected Anomalies
+* Conclusion
+
+
+## AI Observability Agent
+
+POST /api/ai/agent
+
+Autonomously combines:
+
+* Investigation
+* RCA
+* Anomaly Detection
+* Alertmanager Webhook
+
+to answer operational questions using live observability data.
+
+### Example
+
+Question:
+
+Why is the system slow?
+
+Workflow:
+
+User Question
+→ Investigation
+→ RCA
+→ Anomaly Detection
+→ Alert Analysis
+→ Consolidated Assessment
+
+### Example API
+
+```
+echo '$ curl -X POST http://localhost:3000/api/ai/agent -H "Content-Type: application/json" -d "{\"question\":\"Why is the system slow?\"}"'
+
+curl -s -X POST \
+http://localhost:3000/api/ai/agent \
+-H "Content-Type: application/json" \
+-d '{"question":"Why is the system slow?"}' \
+| python3 -c '
+import sys, json
+data = json.load(sys.stdin)
+print(data["response"])
+'
+```
+
+### Example Response
+
+```
+$ curl -X POST http://localhost:3000/api/ai/agent -H "Content-Type: application/json" -d "{\"question\":\"Why is the system slow?\"}"
+**Executive Summary**
+
+The system is experiencing slow performance, with high CPU usage (89.6%) and memory usage (9943.81 MB). The investigation found insufficient data to determine the root cause of the issue.
+
+**Relevant Evidence**
+
+* High CPU usage: 78.1% (RCA) and 89.6% (Alert Analysis)
+* High memory usage: 9435.31 MB (RCA) and 9943.81 MB (Alert Analysis)
+
+**Investigation Findings**
+
+The investigation found that the system is experiencing high CPU usage, with a value of 70.9%. This suggests that the system is under heavy load.
+
+**Alert Findings**
+
+The alert analysis detected no anomalies and could not be validated from supplied observability data.
+
+**Final Assessment**
+
+The high CPU usage (89.6%) and memory usage (9943.81 MB) suggest that the system is experiencing performance issues. The low traffic volumes across all APIs may indicate that the issue is not related to a sudden increase in requests. However, without PostgreSQL metrics, it is unclear whether the database is contributing to the overall slowdown.
+
+**Recommendations**
+
+1. Collect additional observability data from Prometheus (CPU usage and memory usage for specific services or components).
+2. Collect Redis metrics (number of commands executed, average response time, and total number of keys stored).
+3. Collect PostgreSQL metrics (query latency, active connections, and idle connections for specific databases or tables).
+4. Collect OpenWebUI metrics (request latency, error rate, and throughput metrics for specific APIs or endpoints).
+```
+
+The agent gathers evidence across observability systems and generates a consolidated assessment.
 
 ---
 
 # Screenshots
+
+## AI Observability Agent
+
+<img src="Screenshots/ai-agent.png" width="2994" alt="AI Agent">
+
+---
+
+## AI ASK
+
+<img src="Screenshots/ai-ask.png" width="2318" alt="AI ask">
+
+---
+
+## AI Investigate
+
+<img src="Screenshots/ai-investigate.png" width="2068" alt="AI investigate">
+
+---
+
+## AI RCA
+
+<img src="Screenshots/ai-rca.png" width="2568" alt="AI RCA">
+
+---
 
 ## AI Observability Assistant
 
@@ -524,6 +876,12 @@ The assistant uses Prometheus metrics as context and generates structured operat
 * Implemented intent-based routing for observability questions.
 * Enabled Redis and PostgreSQL health analysis using LLMs.
 * Added interactive observability querying through /api/ai/ask.
+* Built multi-step AI investigation workflows.
+* Implemented AI-powered root cause analysis.
+* Added anomaly detection and summarization.
+* Integrated Prometheus Alertmanager with AI analysis.
+* Generated structured incident reports from observability data.
+* Built an AI observability agent capable of orchestrating investigations.
 
 ---
 
@@ -539,10 +897,9 @@ The assistant uses Prometheus metrics as context and generates structured operat
 
 # Future Enhancements
 
-* Automated incident report generation
-* Root cause analysis using LLMs
-* Anomaly detection and alert summarization
-* Prometheus Alertmanager integration
+* Historical trend analysis
+* Automated remediation suggestions
+* Alert correlation across services
 * ClickHouse observability metrics
 * MinIO monitoring
 * SLO and SLA dashboards
@@ -585,7 +942,7 @@ The assistant uses Prometheus metrics as context and generates structured operat
 * Langfuse tracing and monitoring integration
 
 
-## v1.3 (Planned)
+## v1.3 (Completed)
 
 * Root Cause Analysis (RCA) workflows
 * AI-generated incident reports
